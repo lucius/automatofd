@@ -1,8 +1,8 @@
 #include <fstream>
 #include <iostream>
+#include <list>
 #include <regex.h>
 #include <string>
-#include <vector>
 
 #include "AutomatoFD.h"
 
