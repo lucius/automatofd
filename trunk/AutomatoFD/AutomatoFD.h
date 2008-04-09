@@ -24,6 +24,9 @@ class AutomatoFD
 		std::string
 		token;
 
+		unsigned int
+		numeroLinha;
+
 		void
 		carregaCodigo( std::string );
 
