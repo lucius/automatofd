@@ -91,8 +91,6 @@ AutomatoFD::validaCaractereREGEX( char* stringExpressaoRegular, const char* linh
 void
 AutomatoFD::adicionaCaractereToken( )
 {
-	std::cout << (*this->codigoPascal.begin()) << std::endl;
-
 	this->token.push_back( (*this->codigoPascal.begin()).at(0) );
 	*this->codigoPascal.begin( ) = (*this->codigoPascal.begin()).substr(1);
 
@@ -105,6 +103,8 @@ AutomatoFD::adicionaCaractereToken( )
 void
 AutomatoFD::adicionaTokenHash( )
 {
+	std::cout << this->token << std::endl;
+	this->token.clear();
 }
 
 void
@@ -188,6 +188,7 @@ AutomatoFD::estadoS()
 												}
 												else
 												{
+													*this->codigoPascal.begin( ) = (*this->codigoPascal.begin()).substr(1);
 													std::cout << numeroLinha << "	* Erro 0 - Caractere inválido" << std::endl;
 												}
 											}
