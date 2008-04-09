@@ -205,8 +205,18 @@ AutomatoFD::estadoS()
 void
 AutomatoFD::estadoA( )
 {
+	this->adicionaCaractereToken( );
+
 	try
 	{
+		if ( this->validaCaractereREGEX("^([A-Z]|[0-9]|_)", (*this->codigoPascal.begin()).c_str(), "ESPACO_BRANCO") )
+		{
+			this->estadoA( );
+		}
+		else
+		{
+			this->adicionaTokenHash( );
+		}
 	}
 	catch( std::string erro )
 	{
