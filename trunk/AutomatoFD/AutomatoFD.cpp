@@ -44,7 +44,8 @@ AutomatoFD::carregaCodigo( std::string caminho )
 	bufferCaractere;
 
 	arquivoCodigo.open( caminho.c_str(), std::ifstream::in );
-	if ( arquivoCodigo.bad() ) throw ( "Fuma um cigarro! O arquivoDeCodigo nao pode ser aberto!! Sucesso;;" );
+	if ( arquivoCodigo.bad() ) throw ( "Fuma um cigarro! O arquivoCodigo nao pode ser aberto!! Sucesso;;" );
+
 	arquivoCodigo.seekg ( 0, std::ios::beg );
 	
 	linhaCodigo.clear( );
@@ -114,21 +115,21 @@ AutomatoFD::estadoS()
 			/* Primeira Transicao */
 			if ( this->validaCaractereREGEX("^[A-Z]", (*this->codigoPascal.begin()).c_str(), "SA") )
 			{
-				this->adicionaCaractereToken( );
+				this->estadoA( );
 			}
 			else
 			{
 				/* Segunda Transicao */
 				if ( this->validaCaractereREGEX("^[+|*|~|&|||=|;|.|,|-]", (*this->codigoPascal.begin()).c_str(), "SB") )
 				{
-					this->adicionaCaractereToken( );
+					this->estadoB( );
 				}
 				else
 				{
 					/* Terceira Transicao */
 					if ( this->validaCaractereREGEX("^<", (*this->codigoPascal.begin()).c_str(), "SC") )
 					{
-						this->adicionaCaractereToken( );
+						this->estadoC( );
 					}
 					
 					else
@@ -136,35 +137,35 @@ AutomatoFD::estadoS()
 						/* Quarta Transicao */
 						if ( this->validaCaractereREGEX("^>", (*this->codigoPascal.begin()).c_str(), "SD") )
 						{
-							this->adicionaCaractereToken( );
+							this->estadoD( );
 						}
 						else
 						{
 							/* Quinta Transicao */
 							if ( this->validaCaractereREGEX("^[{]", (*this->codigoPascal.begin()).c_str(), "SE") )
 							{
-								this->adicionaCaractereToken( );
+								this->estadoE( );
 							}
 							else
 							{
 								/* Sexta Transicao */
 								if ( this->validaCaractereREGEX("^\\(", (*this->codigoPascal.begin()).c_str(), "SF") )
 								{
-									this->adicionaCaractereToken( );
+									this->estadoF( );
 								}
 								else
 								{
 									/* Setima Transicao */
 									if ( this->validaCaractereREGEX("^\\)", (*this->codigoPascal.begin()).c_str(), "SG") )
 									{
-										this->adicionaCaractereToken( );
+										this->estadoG( );
 									}
 									else
 									{
 										/* Oitava Transicao */
 										if ( this->validaCaractereREGEX("^[0-9]", (*this->codigoPascal.begin()).c_str(), "SH") )
 										{
-											this->adicionaCaractereToken( );
+											this->estadoH( );
 										}
 	
 										else
@@ -172,18 +173,17 @@ AutomatoFD::estadoS()
 											/* Nona Transicao */
 											if ( this->validaCaractereREGEX("^:", (*this->codigoPascal.begin()).c_str(), "SI") )
 											{
-												this->adicionaCaractereToken( );
+												this->estadoI( );
 											}
 											else
 											{
 												if ( this->validaCaractereREGEX("^[ ]", (*this->codigoPascal.begin()).c_str(), "ESPACO_BRANCO") )
 												{
-													this->adicionaCaractereToken( );
+
 												}
 												else
 												{
 													std::cout << numeroLinha << "	* Erro 0 - Caractere inválido" << std::endl;
-													this->adicionaCaractereToken( );
 												}
 											}
 										}
