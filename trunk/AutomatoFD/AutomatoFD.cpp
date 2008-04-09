@@ -209,7 +209,7 @@ AutomatoFD::estadoA( )
 
 	try
 	{
-		if ( this->validaCaractereREGEX("^([A-Z]|[0-9]|_)", (*this->codigoPascal.begin()).c_str(), "ESPACO_BRANCO") )
+		if ( this->validaCaractereREGEX("^([A-Z]|[0-9]|_)", (*this->codigoPascal.begin()).c_str(), "AA") )
 		{
 			this->estadoA( );
 		}
@@ -220,6 +220,231 @@ AutomatoFD::estadoA( )
 	}
 	catch( std::string erro )
 	{
-		
+		std::cout << erro << std::endl;
 	}
+}
+
+void
+AutomatoFD::estadoB( )
+{
+	this->adicionaCaractereToken( );
+	this->adicionaTokenHash( );
+}
+
+void
+AutomatoFD::estadoC( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^(>|=)", (*this->codigoPascal.begin()).c_str(), "CJ") )
+		{
+			this->estadoJ( );
+		}
+		else
+		{
+			this->adicionaTokenHash( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoD( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^=", (*this->codigoPascal.begin()).c_str(), "DK") )
+		{
+			this->estadoK( );
+		}
+		else
+		{
+			this->adicionaTokenHash( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoE( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^[^}]", (*this->codigoPascal.begin()).c_str(), "EE") )
+		{
+			this->estadoE( );
+		}
+		else if ( this->validaCaractereREGEX("^[}]", (*this->codigoPascal.begin()).c_str(), "EL") )
+		{
+			this->estadoL( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoF( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^[*]", (*this->codigoPascal.begin()).c_str(), "FM") )
+		{
+			this->estadoM( );
+		}
+		else
+		{
+			this->adicionaTokenHash( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoG( )
+{
+	this->adicionaCaractereToken( );
+	this->adicionaTokenHash( );
+}
+
+void
+AutomatoFD::estadoH( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^[0-9]", (*this->codigoPascal.begin()).c_str(), "HH") )
+		{
+			this->estadoH( );
+		}
+		else
+		{
+			this->adicionaTokenHash( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoI( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^[=]", (*this->codigoPascal.begin()).c_str(), "IN") )
+		{
+			this->estadoN( );
+		}
+		else
+		{
+			this->adicionaTokenHash( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoJ( )
+{
+	this->adicionaCaractereToken( );
+	this->adicionaTokenHash( );
+}
+
+void
+AutomatoFD::estadoK( )
+{
+	this->adicionaCaractereToken( );
+	this->adicionaTokenHash( );
+}
+
+void
+AutomatoFD::estadoL( )
+{
+	this->adicionaCaractereToken( );
+	this->adicionaTokenHash( );
+}
+
+void
+AutomatoFD::estadoM( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^[^*]", (*this->codigoPascal.begin()).c_str(), "MM") )
+		{
+			this->estadoM( );
+		}
+		else if ( this->validaCaractereREGEX("^[*]", (*this->codigoPascal.begin()).c_str(), "MO") )
+		{
+			this->estadoO( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoN( )
+{
+	this->adicionaCaractereToken( );
+	this->adicionaTokenHash( );
+}
+
+void
+AutomatoFD::estadoO( )
+{
+	this->adicionaCaractereToken( );
+
+	try
+	{
+		if ( this->validaCaractereREGEX("^[^\)]", (*this->codigoPascal.begin()).c_str(), "MM") )
+		{
+			this->estadoM( );
+		}
+		else if ( this->validaCaractereREGEX("^[\)]", (*this->codigoPascal.begin()).c_str(), "MO") )
+		{
+			this->estadoP( );
+		}
+	}
+	catch( std::string erro )
+	{
+		std::cout << erro << std::endl;
+	}
+}
+
+void
+AutomatoFD::estadoP( )
+{
+	this->adicionaCaractereToken( );
+	this->adicionaTokenHash( );
 }
