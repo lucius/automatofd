@@ -67,6 +67,8 @@ AutomatoFD::carregaCodigo( std::string caminho )
 		}
 	}
 	arquivoCodigo.close( );
+	
+	this->numeroLinha = 1;
 }
 
 int
@@ -91,12 +93,21 @@ AutomatoFD::validaCaractereREGEX( char* stringExpressaoRegular, const char* linh
 void
 AutomatoFD::adicionaCaractereToken( )
 {
-	this->token.push_back( (*this->codigoPascal.begin()).at(0) );
-	*this->codigoPascal.begin( ) = (*this->codigoPascal.begin()).substr(1);
-
 	if ( (*this->codigoPascal.begin()).empty() )
 	{
 		this->codigoPascal.pop_front( );
+		this->numeroLinha++;
+	}
+	else
+	{
+		this->token.push_back( (*this->codigoPascal.begin()).at(0) );
+		*this->codigoPascal.begin( ) = (*this->codigoPascal.begin()).substr(1);
+	
+		if ( (*this->codigoPascal.begin()).empty() )
+		{
+			this->codigoPascal.pop_front( );
+			this->numeroLinha++;
+		}
 	}
 }
 
@@ -110,9 +121,6 @@ AutomatoFD::adicionaTokenHash( )
 void
 AutomatoFD::estadoS()
 {
-	unsigned int
-	numeroLinha = 0;
-
 	while( !this->codigoPascal.empty() )
 	{
 		try
@@ -188,8 +196,8 @@ AutomatoFD::estadoS()
 												}
 												else
 												{
-													*this->codigoPascal.begin( ) = (*this->codigoPascal.begin()).substr(1);
-													std::cout << numeroLinha << "	* Erro 0 - Caractere inválido" << std::endl;
+													std::cout << this->numeroLinha << "	* Erro 0 - Caractere inválido" << std::endl;
+													this->adicionaCaractereToken( );
 												}
 											}
 										}
