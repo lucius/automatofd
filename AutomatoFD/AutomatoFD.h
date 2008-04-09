@@ -5,7 +5,7 @@
 #include <list>
 #include <string>
 
-/*bogaFlame*/
+
 
 class AutomatoFD
 {
