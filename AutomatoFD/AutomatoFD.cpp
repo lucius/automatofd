@@ -184,7 +184,7 @@ AutomatoFD::estadoS()
 											{
 												if ( this->validaCaractereREGEX("^[ ]", (*this->codigoPascal.begin()).c_str(), "ESPACO_BRANCO") )
 												{
-
+													*this->codigoPascal.begin( ) = (*this->codigoPascal.begin()).substr(1);
 												}
 												else
 												{
