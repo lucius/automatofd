@@ -103,6 +103,11 @@ AutomatoFD::adicionaCaractereToken( )
 }
 
 void
+AutomatoFD::adicionaTokenHash( )
+{
+}
+
+void
 AutomatoFD::estadoS()
 {
 	unsigned int
@@ -427,11 +432,11 @@ AutomatoFD::estadoO( )
 
 	try
 	{
-		if ( this->validaCaractereREGEX("^[^\)]", (*this->codigoPascal.begin()).c_str(), "MM") )
+		if ( this->validaCaractereREGEX("^[^\\)]", (*this->codigoPascal.begin()).c_str(), "MM") )
 		{
 			this->estadoM( );
 		}
-		else if ( this->validaCaractereREGEX("^[\)]", (*this->codigoPascal.begin()).c_str(), "MO") )
+		else if ( this->validaCaractereREGEX("^[\\)]", (*this->codigoPascal.begin()).c_str(), "MO") )
 		{
 			this->estadoP( );
 		}
