@@ -1,10 +1,13 @@
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <list>
 #include <regex.h>
 #include <string>
 
 #include "AutomatoFD.h"
+#include "StructToken.h"
+#include "TabelaSimbolos.h"
 
 
 
@@ -69,6 +72,7 @@ AutomatoFD::carregaCodigo( std::string caminho )
 	arquivoCodigo.close( );
 	
 	this->numeroLinha = 1;
+	this->numeroToken = 1;
 }
 
 int
@@ -112,9 +116,46 @@ AutomatoFD::adicionaCaractereToken( )
 }
 
 void
-AutomatoFD::adicionaTokenHash( )
+AutomatoFD::adicionaTokenArrayAssociativo( )
 {
-	std::cout << this->token << std::endl;
+	StructToken
+	bufferToken;
+	
+	bufferToken.token = this->token;
+
+	bufferToken.classificacao = TabelaSimbolos::getInstance( ).procuraSimbolo( this->token );
+
+	bufferToken.linha = this->numeroLinha;
+	bufferToken.coluna = 0;
+	
+	std::cout << bufferToken.token << " - " << bufferToken.classificacao << std::endl;
+
+	tokensClassificados.insert ( std::pair<const int, const StructToken> (this->numeroToken, bufferToken) );
+
+	++this->numeroToken;
+
+	this->token.clear();
+}
+
+void
+AutomatoFD::adicionaTokenArrayAssociativo( std::string classificacao )
+{
+	StructToken
+	bufferToken;
+	
+	bufferToken.token = this->token;
+
+	bufferToken.classificacao = classificacao;
+
+	bufferToken.linha = this->numeroLinha;
+	bufferToken.coluna = 0;
+	
+	std::cout << bufferToken.token << " - " << bufferToken.classificacao << std::endl;
+
+	tokensClassificados.insert ( std::pair<const int, const StructToken> (this->numeroToken, bufferToken) );
+
+	++this->numeroToken;
+
 	this->token.clear();
 }
 
@@ -196,8 +237,9 @@ AutomatoFD::estadoS()
 												}
 												else
 												{
-													std::cout << this->numeroLinha << "	* Erro 0 - Caractere inválido" << std::endl;
-													this->adicionaCaractereToken( );
+													std::cout << "Linha " << this->numeroLinha << "	* Erro 0 - Caractere inválido" << std::endl;
+													this->adicionaCaractereToken();
+													this->adicionaTokenArrayAssociativo( "CARACTERE_INVALIDO" );
 												}
 											}
 										}
@@ -229,7 +271,7 @@ AutomatoFD::estadoA( )
 		}
 		else
 		{
-			this->adicionaTokenHash( );
+			this->adicionaTokenArrayAssociativo( );
 		}
 	}
 	catch( std::string erro )
@@ -242,7 +284,7 @@ void
 AutomatoFD::estadoB( )
 {
 	this->adicionaCaractereToken( );
-	this->adicionaTokenHash( );
+	this->adicionaTokenArrayAssociativo( );
 }
 
 void
@@ -258,7 +300,7 @@ AutomatoFD::estadoC( )
 		}
 		else
 		{
-			this->adicionaTokenHash( );
+			this->adicionaTokenArrayAssociativo( );
 		}
 	}
 	catch( std::string erro )
@@ -280,7 +322,7 @@ AutomatoFD::estadoD( )
 		}
 		else
 		{
-			this->adicionaTokenHash( );
+			this->adicionaTokenArrayAssociativo( );
 		}
 	}
 	catch( std::string erro )
@@ -324,7 +366,7 @@ AutomatoFD::estadoF( )
 		}
 		else
 		{
-			this->adicionaTokenHash( );
+			this->adicionaTokenArrayAssociativo( );
 		}
 	}
 	catch( std::string erro )
@@ -337,7 +379,7 @@ void
 AutomatoFD::estadoG( )
 {
 	this->adicionaCaractereToken( );
-	this->adicionaTokenHash( );
+	this->adicionaTokenArrayAssociativo( );
 }
 
 void
@@ -353,7 +395,7 @@ AutomatoFD::estadoH( )
 		}
 		else
 		{
-			this->adicionaTokenHash( );
+			this->adicionaTokenArrayAssociativo( "DIGITO" );
 		}
 	}
 	catch( std::string erro )
@@ -375,7 +417,7 @@ AutomatoFD::estadoI( )
 		}
 		else
 		{
-			this->adicionaTokenHash( );
+			this->adicionaTokenArrayAssociativo( );
 		}
 	}
 	catch( std::string erro )
@@ -388,21 +430,21 @@ void
 AutomatoFD::estadoJ( )
 {
 	this->adicionaCaractereToken( );
-	this->adicionaTokenHash( );
+	this->adicionaTokenArrayAssociativo( );
 }
 
 void
 AutomatoFD::estadoK( )
 {
 	this->adicionaCaractereToken( );
-	this->adicionaTokenHash( );
+	this->adicionaTokenArrayAssociativo( );
 }
 
 void
 AutomatoFD::estadoL( )
 {
 	this->adicionaCaractereToken( );
-	this->adicionaTokenHash( );
+	this->adicionaTokenArrayAssociativo( "COMENTARIO" );
 }
 
 void
@@ -431,7 +473,7 @@ void
 AutomatoFD::estadoN( )
 {
 	this->adicionaCaractereToken( );
-	this->adicionaTokenHash( );
+	this->adicionaTokenArrayAssociativo( );
 }
 
 void
@@ -460,5 +502,5 @@ void
 AutomatoFD::estadoP( )
 {
 	this->adicionaCaractereToken( );
-	this->adicionaTokenHash( );
+	this->adicionaTokenArrayAssociativo( "COMENTARIO" );
 }
