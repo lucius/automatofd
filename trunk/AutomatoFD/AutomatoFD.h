@@ -3,7 +3,11 @@
 
 #include <iostream>
 #include <list>
+#include <map>
 #include <string>
+
+#include "StructToken.h"
+#include "TabelaSimbolos.h"
 
 
 
@@ -27,6 +31,12 @@ class AutomatoFD
 		unsigned int
 		numeroLinha;
 
+		unsigned int
+		numeroToken;
+
+		std::map<int,StructToken>
+		tokensClassificados;
+
 		void
 		carregaCodigo( std::string );
 
@@ -37,7 +47,10 @@ class AutomatoFD
 		adicionaCaractereToken(	);
 
 		void
-		adicionaTokenHash( );
+		adicionaTokenArrayAssociativo( );
+
+		void
+		adicionaTokenArrayAssociativo( std::string );
 
 		void
 		estadoS( );
